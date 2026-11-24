@@ -1,0 +1,66 @@
+{
+  "habits": [
+    {
+      "id": "h_mwtu02dm",
+      "name": "Sport",
+      "desc": "",
+      "emoji": "🏃",
+      "color": "terracotta",
+      "createdAt": "2026-11-23T22:22:35.530Z"
+    },
+    {
+      "id": "h_mwtu066v",
+      "name": "Cours",
+      "desc": "",
+      "emoji": "📚",
+      "color": "azure",
+      "createdAt": "2026-11-23T22:22:40.471Z"
+    },
+    {
+      "id": "h_mwtu0ekx",
+      "name": "Github",
+      "desc": "",
+      "emoji": "💻",
+      "color": "plum",
+      "createdAt": "2026-11-23T22:22:51.345Z"
+    },
+    {
+      "id": "h_mwtu12ds",
+      "name": "Couché",
+      "desc": "",
+      "emoji": "💤",
+      "color": "sage",
+      "createdAt": "2026-11-23T22:23:22.192Z"
+    },
+    {
+      "id": "h_mwtu1dr4",
+      "name": "Dents (totale)",
+      "desc": "",
+      "emoji": "💧",
+      "color": "emerald",
+      "createdAt": "2026-11-23T22:23:36.928Z"
+    }
+  ],
+  "logs": {
+    "h_mwtu02dm": {
+      "2026-11-23": true
+    },
+    "h_mwtu066v": {
+      "2026-11-23": true
+    },
+    "h_mwtu0ekx": {
+      "2026-11-23": true
+    },
+    "h_mwtu12ds": {
+      "2026-11-23": true
+    },
+    "h_mwtu1dr4": {
+      "2026-11-23": true
+    }
+  },
+  "settings": {
+    "theme": "glass",
+    "palette": "terracotta",
+    "sound": true
+  }
+}

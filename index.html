@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="glass">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Suivi d'habitudes ultra-léger et rapide — Clear Glass & Typographie Claude (Anthropic)">
+  <title>Cadence — Clear Glass Edition</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23E28766%22/><rect x=%2220%22 y=%2220%22 width=%2225%22 height=%2225%22 rx=%226%22 fill=%22white%22 opacity=%220.4%22/><rect x=%2255%22 y=%2220%22 width=%2225%22 height=%2225%22 rx=%226%22 fill=%22white%22 opacity=%220.8%22/><rect x=%2220%22 y=%2255%22 width=%2225%22 height=%2225%22 rx=%226%22 fill=%22white%22 opacity=%220.9%22/><rect x=%2255%22 y=%2255%22 width=%2225%22 height=%2225%22 rx=%226%22 fill=%22white%22/></svg>">
+</head>
+<body>
+  <!-- Fond atmosphérique profond avec orbes lumineux de réfraction -->
+  <div class="ambient-backdrop">
+    <div class="ambient-orb orb-terracotta"></div>
+    <div class="ambient-orb orb-amber"></div>
+    <div class="ambient-orb orb-indigo"></div>
+    <div class="ambient-orb orb-slate"></div>
+  </div>
+
+  <!-- Canvas plein écran pour la micro-célébration (Boom!) -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Fenêtre principale Clear Glass fluide & responsive -->
+  <div class="glass-window-container">
+    <div class="glass-window">
+      <!-- Reflet diagonal de verre physique -->
+      <div class="glass-reflection-glare"></div>
+
+      <!-- Barre de titre épurée (SANS boutons rouge/jaune/vert superflus) -->
+      <div class="window-titlebar">
+        <div class="window-brand-badge">
+          <div class="brand-sparkle-dot">⚡</div>
+          <span class="window-app-name">Cadence</span>
+          <span class="window-title-sep">•</span>
+          <span class="window-title-sub" id="sync-status-badge">● data.json synchronisé</span>
+        </div>
+
+        <div class="window-actions-right">
+          <!-- Date du jour -->
+          <div class="window-date-pill" id="current-date-display">
+            <span id="date-text">Lundi 23 nov.</span>
+          </div>
+
+          <!-- Bouton Son Haptique -->
+          <button id="sound-toggle-btn" class="mac-icon-btn" title="Activer / désactiver les effets sonores">
+            <svg id="sound-on-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            <svg id="sound-off-icon" class="hidden" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+          </button>
+
+          <!-- Bouton Options & Sauvegarde -->
+          <div class="dropdown">
+            <button id="backup-menu-btn" class="mac-icon-btn" title="Options et données">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </button>
+            <div id="backup-dropdown" class="dropdown-menu glass-subpanel hidden">
+              <button id="save-server-btn" class="dropdown-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                Forcer l'écriture dans data.json
+              </button>
+              <button id="export-btn" class="dropdown-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Exporter une copie (JSON)
+              </button>
+              <label class="dropdown-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                Importer des données
+                <input type="file" id="import-file-input" accept=".json" style="display:none;">
+              </label>
+              <div class="dropdown-divider"></div>
+              <button id="reset-sample-btn" class="dropdown-item text-danger">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M3 21v-5h5"></path></svg>
+                Rétablir données initiales
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Corps à Deux Compartiments Clear Glass Réactifs & Fluides -->
+      <div class="glass-split-body">
+        
+        <!-- ===================================================================
+             PANNEAU GAUCHE : Explorateur d'Habitudes & Actions Rapides
+             =================================================================== -->
+        <aside class="glass-pane pane-sidebar">
+          <div class="pane-sidebar-top">
+            <!-- Sélecteur Segmenté (Toutes / À faire / Faites) -->
+            <div class="segmented-pill-control" id="habits-filter">
+              <button class="seg-pill-btn active" data-filter="all">Toutes</button>
+              <button class="seg-pill-btn" data-filter="pending">À faire</button>
+              <button class="seg-pill-btn" data-filter="completed">Faites</button>
+            </div>
+
+            <!-- Champ de Recherche -->
+            <div class="glass-search-box">
+              <svg class="search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="habit-search-input" class="search-input" placeholder="Rechercher une habitude..." autocomplete="off">
+              <button id="search-clear-btn" class="search-clear-btn hidden" aria-label="Effacer">✕</button>
+            </div>
+          </div>
+
+          <!-- Liste des habitudes avec boutons explicites "Valider" -->
+          <div class="sidebar-list-scroll">
+            <div id="habits-list-container" class="habits-glass-list">
+              <!-- Injecté dynamiquement par app.js -->
+            </div>
+          </div>
+
+          <!-- Bas du panneau gauche -->
+          <div class="pane-sidebar-footer">
+            <span class="playing-watermark">Playing on Glass</span>
+            <button id="add-habit-btn" class="btn-glass-add" title="Nouvelle habitude">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Ajouter</span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- ===================================================================
+             PANNEAU DROIT : Grand Hub GitHub & Suivi Détaillé des Sous-Parties
+             =================================================================== -->
+        <section class="glass-pane pane-main">
+          
+          <!-- En-tête : Grand titre Claude & Sélecteur de palette -->
+          <div class="main-header">
+            <div class="main-title-block">
+              <h2 class="main-claude-title" id="github-contributions-count">
+                929 habitudes validées sur l'année écoulée
+              </h2>
+              <p class="main-claude-subtitle">
+                Votre constance quotidienne retranscrite case par case. Cliquez sur une case pour ajuster l'historique.
+              </p>
+            </div>
+
+            <!-- Bouton Palette GitHub / Claude (insécable) -->
+            <div class="palette-picker-dropdown">
+              <button id="palette-menu-btn" class="palette-menu-trigger">
+                <span class="palette-dot-preview" id="palette-dot-preview"></span>
+                <span id="current-palette-name">Claude Terracotta</span>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <div id="palette-dropdown" class="dropdown-menu glass-subpanel hidden">
+                <button class="dropdown-item palette-select-item" data-palette="terracotta">
+                  <span class="palette-swatch swatch-terracotta"></span>
+                  Claude Terracotta (Signature)
+                </button>
+                <button class="dropdown-item palette-select-item" data-palette="github-green">
+                  <span class="palette-swatch swatch-green"></span>
+                  GitHub Émeraude (Exact GitHub)
+                </button>
+                <button class="dropdown-item palette-select-item" data-palette="amber">
+                  <span class="palette-swatch swatch-amber"></span>
+                  Ambre Chaleureux
+                </button>
+                <button class="dropdown-item palette-select-item" data-palette="azure">
+                  <span class="palette-swatch swatch-azure"></span>
+                  Azur & Cristal
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Boîte de la Matrice d'Activité Globale GitHub (SVG 53 colonnes) -->
+          <div class="github-box-outer">
+            <div class="github-svg-scroll">
+              <div id="global-github-svg-container" class="github-svg-wrapper">
+                <!-- SVG GitHub généré au pixel près -->
+              </div>
+            </div>
+
+            <div class="github-box-footer">
+              <button type="button" class="github-help-btn" id="github-help-btn">
+                Comment sont comptabilisées les habitudes
+              </button>
+
+              <div class="github-footer-legend">
+                <span class="legend-text">Moins</span>
+                <div class="legend-cells-row">
+                  <span class="legend-sq level-0" title="0% complété"></span>
+                  <span class="legend-sq level-1" title="1-33%"></span>
+                  <span class="legend-sq level-2" title="34-66%"></span>
+                  <span class="legend-sq level-3" title="67-99%"></span>
+                  <span class="legend-sq level-4" title="100% accompli"></span>
+                </div>
+                <span class="legend-text">Plus</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section Basse : Anneau de progression & Métriques Fluides -->
+          <div class="main-bottom-dashboard">
+            <!-- Anneau de complétion quotidienne -->
+            <div class="today-ring-card glass-subpanel">
+              <div class="ring-circle-wrap">
+                <svg class="progress-ring-svg" width="58" height="58">
+                  <circle class="ring-bg" stroke-width="4.5" fill="transparent" r="24" cx="29" cy="29"/>
+                  <circle id="today-progress-circle" class="ring-fill" stroke-width="4.5" stroke-dasharray="150.79" stroke-dashoffset="150.79" fill="transparent" r="24" cx="29" cy="29"/>
+                </svg>
+                <div class="ring-center-text" id="today-percentage">0%</div>
+              </div>
+              <div class="ring-info-text">
+                <span class="ring-count" id="today-fraction">0 / 0</span>
+                <span class="ring-label">validées aujourd'hui</span>
+              </div>
+              <button id="quick-boom-all-btn" class="btn-boom-all" title="Valider tout pour aujourd'hui">
+                Tout valider ✨
+              </button>
+            </div>
+
+            <!-- Grille de Métriques (Responsive, jamais coupée) -->
+            <div class="stats-pills-grid">
+              <div class="stat-pill-card glass-subpanel">
+                <span class="stat-pill-icon">🔥</span>
+                <div class="stat-pill-details">
+                  <span class="stat-pill-val" id="stat-current-streak">0 jour</span>
+                  <span class="stat-pill-lbl">Série active</span>
+                </div>
+              </div>
+              <div class="stat-pill-card glass-subpanel">
+                <span class="stat-pill-icon">🏆</span>
+                <div class="stat-pill-details">
+                  <span class="stat-pill-val" id="stat-best-streak">0 jour</span>
+                  <span class="stat-pill-lbl">Meilleur record</span>
+                </div>
+              </div>
+              <div class="stat-pill-card glass-subpanel">
+                <span class="stat-pill-icon">🎯</span>
+                <div class="stat-pill-details">
+                  <span class="stat-pill-val" id="stat-total-completions">0</span>
+                  <span class="stat-pill-lbl">Actions totales</span>
+                </div>
+              </div>
+              <div class="stat-pill-card glass-subpanel">
+                <span class="stat-pill-icon">📈</span>
+                <div class="stat-pill-details">
+                  <span class="stat-pill-val" id="stat-monthly-rate">0%</span>
+                  <span class="stat-pill-lbl">Taux (30j)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===================================================================
+               SOUS-PARTIES : TABLEAUX DE SUIVI ET BOUTONS VALIDER PAR HABITUDE
+               =================================================================== -->
+          <div class="sub-habits-section">
+            <div class="sub-habits-header">
+              <div>
+                <div class="sub-title-row">
+                  <h3 class="sub-habits-title">Tableaux de Suivi par Habitude</h3>
+                  <span class="sub-habits-badge">Sous-parties individuelles</span>
+                </div>
+                <p class="sub-habits-desc">
+                  Chaque habitude dispose de son propre tableau GitHub dédié, de ses statistiques et de son bouton de validation direct.
+                </p>
+              </div>
+            </div>
+
+            <!-- Grille / Liste des tableaux de suivi individuels -->
+            <div id="sub-habits-container" class="sub-habits-list">
+              <!-- Rendu dynamique par app.js : chaque habitude a son tableau SVG complet + boutons valider/modifier -->
+            </div>
+          </div>
+
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu contextuel personnalisé au clic droit sur une habitude -->
+  <div id="habit-context-menu" class="glass-context-menu hidden">
+    <button id="ctx-toggle-btn" class="context-item">
+      <span class="ctx-icon">✓</span> <span id="ctx-toggle-text">Valider aujourd'hui</span>
+    </button>
+    <button id="ctx-edit-btn" class="context-item">
+      <span class="ctx-icon">✏️</span> Modifier l'habitude
+    </button>
+    <div class="dropdown-divider"></div>
+    <button id="ctx-delete-btn" class="context-item text-danger">
+      <span class="ctx-icon">🗑️</span> Supprimer l'habitude
+    </button>
+  </div>
+
+  <!-- Modal Nouvelle / Modifier Habitude -->
+  <div id="habit-modal" class="modal-overlay hidden">
+    <div class="modal-card glass-modal">
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title">Créer une habitude</h3>
+        <button id="modal-close-btn" class="mac-close-btn" aria-label="Fermer">✕</button>
+      </div>
+
+      <form id="habit-form" class="modal-form">
+        <input type="hidden" id="form-habit-id" value="">
+
+        <div class="form-row">
+          <div class="form-group emoji-picker-group">
+            <label class="form-label" for="form-habit-emoji">Icône</label>
+            <div class="emoji-input-wrapper">
+              <input type="text" id="form-habit-emoji" class="emoji-input" value="⚡" maxlength="2" required>
+            </div>
+            <div class="emoji-presets">
+              <span class="emoji-chip" data-emoji="🏃">🏃</span>
+              <span class="emoji-chip" data-emoji="📚">📚</span>
+              <span class="emoji-chip" data-emoji="🧘">🧘</span>
+              <span class="emoji-chip" data-emoji="💧">💧</span>
+              <span class="emoji-chip" data-emoji="💻">💻</span>
+              <span class="emoji-chip" data-emoji="✍️">✍️</span>
+              <span class="emoji-chip" data-emoji="🍎">🍎</span>
+              <span class="emoji-chip" data-emoji="💤">💤</span>
+            </div>
+          </div>
+
+          <div class="form-group name-group">
+            <label class="form-label" for="form-habit-name">Nom de l'habitude</label>
+            <input type="text" id="form-habit-name" class="form-input" placeholder="Ex: 30 min de lecture, Sport, Méditation..." required autofocus>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="form-habit-desc">Description (optionnelle)</label>
+          <input type="text" id="form-habit-desc" class="form-input" placeholder="Pourquoi ou comment vous la pratiquez...">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Couleur du tableau de suivi</label>
+          <div class="color-palette-picker" id="color-palette-container">
+            <label class="color-option">
+              <input type="radio" name="habit-color" value="terracotta" checked>
+              <span class="color-dot color-terracotta" title="Terracotta (Claude)"></span>
+            </label>
+            <label class="color-option">
+              <input type="radio" name="habit-color" value="amber">
+              <span class="color-dot color-amber" title="Ambre chaud"></span>
+            </label>
+            <label class="color-option">
+              <input type="radio" name="habit-color" value="sage">
+              <span class="color-dot color-sage" title="Sauge naturelle"></span>
+            </label>
+            <label class="color-option">
+              <input type="radio" name="habit-color" value="azure">
+              <span class="color-dot color-azure" title="Bleu Azur"></span>
+            </label>
+            <label class="color-option">
+              <input type="radio" name="habit-color" value="plum">
+              <span class="color-dot color-plum" title="Prune douce"></span>
+            </label>
+            <label class="color-option">
+              <input type="radio" name="habit-color" value="emerald">
+              <span class="color-dot color-emerald" title="Émeraude GitHub"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="modal-cancel-btn" class="btn-subtle">Annuler</button>
+          <button type="submit" class="btn-primary-glass">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Modification Jour Spécifique -->
+  <div id="day-modal" class="modal-overlay hidden">
+    <div class="modal-card modal-card-sm glass-modal">
+      <div class="modal-header">
+        <h3 id="day-modal-title" class="modal-title">Modifier la journée</h3>
+        <button id="day-modal-close-btn" class="mac-close-btn" aria-label="Fermer">✕</button>
+      </div>
+      <p id="day-modal-date" class="modal-subtitle">Lundi 23 Novembre 2026</p>
+
+      <div id="day-modal-habits-list" class="day-modal-list">
+        <!-- Rendu dynamique par case cliquée -->
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" id="day-modal-done-btn" class="btn-primary-glass full-width">Terminer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Explication -->
+  <div id="help-modal" class="modal-overlay hidden">
+    <div class="modal-card glass-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Calcul des cases GitHub</h3>
+        <button id="help-modal-close-btn" class="mac-close-btn" aria-label="Fermer">✕</button>
+      </div>
+      <div class="help-modal-content">
+        <p>Chaque case correspond à un jour précis de l'année. Sa teinte s'intensifie selon votre pourcentage d'habitudes accomplies ce jour-là :</p>
+        <ul class="help-levels-list">
+          <li><span class="legend-sq level-0"></span> <strong>Niveau 0 (0%)</strong> : Aucune habitude validée.</li>
+          <li><span class="legend-sq level-1"></span> <strong>Niveau 1 (1-33%)</strong> : Démarrage régulier.</li>
+          <li><span class="legend-sq level-2"></span> <strong>Niveau 2 (34-66%)</strong> : Plus de la moitié complétée.</li>
+          <li><span class="legend-sq level-3"></span> <strong>Niveau 3 (67-99%)</strong> : Presque parfait.</li>
+          <li><span class="legend-sq level-4"></span> <strong>Niveau 4 (100%)</strong> : Journée 100% accomplie !</li>
+        </ul>
+        <p class="help-tip">💾 <strong>Persistance garantie</strong> : Toutes vos données sont enregistrées en temps réel dans votre fichier <code>d:\App\data.json</code> et conservées lors des mises à jour.</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="help-modal-ok-btn" class="btn-primary-glass">Compris</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tooltip flottant style GitHub Dark / Clear Glass -->
+  <div id="tooltip" class="github-tooltip hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
