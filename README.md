@@ -1,49 +1,114 @@
-# ⚡ Cadence — Clear Glass Edition (Référence macOS & Typo Claude)
-
-Une application ultra-légère en mémoire RAM (< 15-20 Mo), instantanée, avec une **direction artistique Clear Glass / Verre translucide inspirée de macOS**, une **typographie éditoriale Claude (Anthropic)** et un **fichier indépendant `data.json` garantissant la persistance de vos données lors de toute mise à jour**.
-
----
-
-## 🔒 1. Persistance Garantie dans `data.json`
-
-Vos données ne sont plus dépendantes d'un cache temporaire :
-- **Fichier dédié `data.json`** : Vos habitudes, votre historique sur l'année et vos réglages sont enregistrés directement dans `d:\App\data.json`.
-- **Inviolable lors des mises à jour** : Même si le code source (`index.html`, `styles.css`, `app.js`) est mis à jour, votre fichier `data.json` est **préservé et jamais écrasé**.
-- **Double sécurité** : L'application enregistre en parallèle dans `data.json` et dans le `localStorage` de votre navigateur.
-- **Indicateur en direct** : En haut de la fenêtre, l'indicateur vert `● data.json synchronisé` confirme l'écriture immédiate de chaque clic.
-
----
-
-## 🪟 2. Direction Artistique Clear Glass (Conforme à votre image de référence)
-
-La structure de l'interface reprend fidèlement l'ambiance et les détails de l'application modèle :
-- **Cadre de fenêtre macOS** : Boutons *traffic lights* (rouge, jaune, vert), angles très arrondis (`border-radius: 24px`), et **reflet diagonal de verre physique** traversant l'écran.
-- **Compartiment Gauche (Explorateur d'Habitudes & Actions Rapides)** :
-  - **Sélecteur segmenté en pilule** : `Toutes`, `À faire`, `Faites`.
-  - **Recherche creusée** : champ translucide avec icône loupe pour filtrer instantanément.
-  - **Tuiles d'habitudes en verre givré** : vignette icône arrondie, nom en typographie soignée, série 🔥, et bouton tactile **« BOOM »** pour valider en 1 clic.
-  - L'habitude sélectionnée s'illumine d'un voile de verre lumineux (effet *Hollow Be Thy Squad* de l'image).
-  - Signature `Playing on Glass` en bas à gauche.
-- **Compartiment Droit (Grand Hub GitHub & Analytique)** :
-  - **Grand titre éditorial Claude** : typographie sérif élégante (*Charter / Iowan Old Style*).
-  - **Matrice GitHub exacte en SVG** : 53 semaines, 7 lignes (Dimanche à Samedi), avec `Lun`, `Mer`, `Ven` alignés et mois calés au millimètre.
-  - **Sélecteur de palettes** : Claude Terracotta, GitHub Émeraude, Ambre, Azur.
-  - **Tableau de bord inférieur** : anneau de progression dynamique circulaire, 4 pastilles de statistiques de série, et bouton d'action rapide `Tout valider ✨`.
-
----
-
-## ⚡ 3. Consommation RAM & Vitesse
-
-- **~15 Mo de RAM** au total.
-- Zéro framework lourd (pas d'Electron).
-- Démarrage en moins de **150 ms**.
-
----
-
-## 🚀 Comment Lancer l'Application
-
-Double-cliquez simplement sur :
 ```text
+   ______           __                       
+  / ____/___ ______/ /__  ____  ________     
+ / /   / __ `/ __  / _ \/ __ \/ ___/ _ \     
+/ /___/ /_/ / /_/ /  __/ / / / /__/  __/     
+\____/\__,_/\__,_/\___/_/ /_/\___/\___/      
+```
+
+> Lightweight habit tracker with GitHub-style contribution heatmaps, local JSON persistence, and a frosted glass UI.
+
+---
+
+### Overview
+
+Cadence is a local, privacy-first habit tracking application. It replicates GitHub's contribution matrix to visualize daily consistency across individual habits and combined activity.
+
+- **Zero dependencies**: Vanilla JavaScript, pure SVG rendering, CSS3.
+- **Low footprint**: ~15-20 MB RAM in standalone mode, 0 MB when closed.
+- **Local persistence**: Direct read/write to `data.json` via a lightweight background worker. No telemetry, no accounts.
+
+---
+
+### Features
+
+- **GitHub Contribution Matrix**: 53-week rolling calendar rendered in pure SVG, accurate weekday offsets (Mon/Wed/Fri labels), and month alignment.
+- **Individual & Global Views**: Global activity heatmap alongside dedicated sub-trackers for each habit.
+- **Single-Click Log**: Instant completion toggle with synthetic Web Audio feedback.
+- **Custom Palettes**: Claude Terracotta, GitHub Classic Green, Amber, and Azure.
+- **Data Integrity**: State is stored locally in `data.json` and mirrored in `localStorage`. Code updates never overwrite existing logs.
+- **Full Export/Import**: Portable JSON backups.
+
+---
+
+### Quick Start
+
+#### Option 1: Standalone Window (Recommended on Windows)
+Run `Lancer-Cadence.bat`. It starts the local persistence server and opens a dedicated borderless window via Edge App mode.
+
+```cmd
 Lancer-Cadence.bat
 ```
-> Démarre automatiquement le mini-serveur de persistance en arrière-plan et ouvre l'application dans une fenêtre autonome macOS Clear Glass ultra-épurée.
+
+#### Option 2: Browser / Python Server
+Start the local server manually:
+
+```bash
+python server.py
+```
+Then navigate to `http://localhost:5050`.
+
+#### Option 3: Static File
+Open `index.html` directly in any modern browser. Data will persist in `localStorage`.
+
+---
+
+### Project Structure
+
+```text
+Cadence/
+├── index.html          # Main application structure
+├── styles.css          # Frosted glass design system & layout
+├── app.js              # Application logic, SVG generator, audio engine
+├── server.py           # Atomic JSON persistence server (Python stdlib)
+├── data.json           # Habit definitions and logged history
+├── Lancer-Cadence.bat  # 1-click Windows launcher
+├── manifest.json       # PWA manifest
+└── sw.js               # Service Worker for offline capability
+```
+
+---
+
+### Data Format (`data.json`)
+
+Data is stored in plain JSON:
+
+```json
+{
+  "habits": [
+    {
+      "id": "h1",
+      "name": "Meditation",
+      "emoji": "🧘",
+      "color": "terracotta",
+      "desc": "10 min morning session"
+    }
+  ],
+  "logs": {
+    "h1": {
+      "2026-11-23": true,
+      "2026-11-24": true
+    }
+  },
+  "settings": {
+    "theme": "glass",
+    "palette": "terracotta",
+    "sound": true
+  }
+}
+```
+
+---
+
+### Shortcuts
+
+| Key | Action |
+| --- | --- |
+| `Esc` | Close any open modal or context menu |
+| `Right-Click` | Open habit quick-action menu (Validate, Edit, Delete) |
+
+---
+
+### License
+
+MIT
